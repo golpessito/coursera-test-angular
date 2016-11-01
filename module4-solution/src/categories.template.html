@@ -1,0 +1,6 @@
+<ul ng-repeat="category in $ctrl.categories">
+  <li>
+    <a href="#" ng-click="$ctrl.getItemsForCategory({shortName:category.short_name});">
+    ({{category.short_name}})</a> {{category.name}}
+  </li>
+</ul>
