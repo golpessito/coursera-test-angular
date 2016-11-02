@@ -2,16 +2,15 @@
 <html ng-app="MenuApp">
   <head>
     <meta charset="utf-8">
-
-
     <title>Module4 Solution</title>
   </head>
   <body>
     <h1>Welcome to our Restaurant</h1>
     <div ng-controller="MenuDataController as list">
-      <categories categories="list.categories"
+      <!-- <categories categories="list.categories"
                   get-items-for-category="list.getItemsForCategory(shortName);">
-      <categories>
+      <categories> -->
+      <ui-view></ui-view>
     </div>
 
     <!-- Libraries -->

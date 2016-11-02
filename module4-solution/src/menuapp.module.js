@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  angular.module('MenuApp',['data'])
+  angular.module('MenuApp',['data','ui.router'])
   .controller('MenuDataController',MenuDataController)
   .service('MenuDataService',MenuDataService)
   .component('categories', {
@@ -11,7 +11,38 @@
       categories:'<',
       getItemsForCategory:'&',
     }
-  });
+  })
+  .component('items',{
+    templateUrl:'src/items.template.html',
+    cnotroller:ItemsComponentController,
+    bindings:{
+      items:'<'
+    }
+  })
+  .config(RoutesConfig);
+
+  RoutesConfig.$inject=['$stateProvider','$urlRouterProvider'];
+
+  function RoutesConfig($stateProvider,$urlRouterProvider){
+    $urlRouterProvider.otherwise('/categories');
+
+    //Set up UI state
+    $stateProvider
+    .state('categories',{
+      url: '/categories',
+      templateUrl:'categories.html'
+    })
+    .state('items',{
+      url: '/items',
+      templateUrl:'items.html'
+    });
+
+  }
+
+  // COMPONENTS
+  function ItemsComponentController(){
+    $ctrl=this;
+  }
 
   function CategoriesComponentController(){
     var $ctrl=this;
@@ -23,6 +54,7 @@
   function MenuDataController(MenuDataService){
     var list=this;
     list.categories=[];
+    list.items=[];
     var promise=MenuDataService.getAllCategories();
 
     promise.then(function(response){
@@ -33,11 +65,11 @@
     });
 
     list.getItemsForCategory=function(shortName){
-      console.log("We are in getItemsForCategory");
       var promise=MenuDataService.getItemsForCategory(shortName);
 
       promise.then(function(response){
-        console.log(response.data);
+        list.items=response.data.menu_items;
+        console.log(list.items);
       })
       .catch(function(){
         console.log("BIG ERROR IN ITEMS");
