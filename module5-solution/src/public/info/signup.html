@@ -1,0 +1,66 @@
+<div class="container">
+
+  <div class="col-md-3 col-sm-4 col-xs-6 col-xxs-12">
+    <h2>Sign Up</h2><br>
+   <form class="signup" name="regForm" novalidate>
+      First Name:<br><input ng-model="signUpCtrl.user.first_name"
+                         name="first_name"
+                         type="text"
+                         required
+                         placeholder="First Name"><br>
+     <span  ng-if="regForm.first_name.$error.required
+                  && regForm.first_name.$touched">
+       * First Name is required
+     </span><br><br>
+      Last Name:<br><input ng-model="signUpCtrl.user.last_name"
+                        name="last_name"
+                        type="text"
+                        required
+                        placeholder="Last Name"><br>
+      <span ng-if="regForm.last_name.$error.required
+                  && regForm.last_name.$touched">
+       * Last Name is required
+      </span><br><br>
+      Mail:<br><input ng-model="signUpCtrl.user.email"
+                        name="email"
+                        type="email"
+                        required
+                        placeholder="Email"><br>
+      <span ng-if="regForm.email.$invalid
+                  && regForm.email.$touched">
+       * Must be a valid email address: handle@domain format
+      </span><br><br>
+      Phone:<br><input ng-model="signUpCtrl.user.phone"
+                         name="phone"
+                         type="text"
+                         pattern="(\d{3})-(\d{3})-(\d{4})"
+                         required
+                         placeholder="Phone ###-###-####"><br>
+      <span ng-if="regForm.phone.$invalid
+                   && regForm.phone.$touched">
+       * Phone Number must be a valid format: ###-###-####
+      </span><br><br>
+      Number of favourite dish:<br> <input ng-model="signUpCtrl.user.dish"
+                                      name="dish"
+                                      type="text"
+                                      required><br>
+      <span ng-if="signUpCtrl.showErrorItem">
+       * No such menu number exists
+      </span>
+      <br>
+      <span ng-if="regForm.dish.$error.required
+                   && regForm.dish.$touched">
+        * Dish is required
+      </span><br><br>
+      <button class="signup"
+              ng-disabled="regForm.$invalid"
+              ng-click="signUpCtrl.submit();"
+              type="submit">
+        Submit
+      </button>
+    </form><br>
+    <div class="info_saved" ng-if="signUpCtrl.userSignUp">
+      <p>Your information has been saved!</p>
+    </div>
+  </div>
+</div>
